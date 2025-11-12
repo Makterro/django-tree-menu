@@ -1,0 +1,20 @@
+<ul>
+  {% for node in menu_tree %}
+    {% with item=node.item %}
+      <li>
+        <a href="{{ item.get_url }}" {% if item == active_item %}style="font-weight:bold"{% endif %}>
+          {{ item.title }}
+        </a>
+        {% if node.children %}
+          <ul>
+            {% for child in node.children %}
+              <li>
+                <a href="{{ child.item.get_url }}">{{ child.item.title }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    {% endwith %}
+  {% endfor %}
+</ul>
