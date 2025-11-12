@@ -5,7 +5,13 @@
   {% if node.children %}
     <ul>
       {% for child in node.children %}
-        {% include "menu/menu_node.html" with node=child active_item=active_item %}
+        {% if node.expand_children %}
+          {% include "menu/menu_node.html" with node=child active_item=active_item %}
+        {% else %}
+          <li>
+            <a href="{{ child.item.get_url }}">{{ child.item.title }}</a>
+          </li>
+        {% endif %}
       {% endfor %}
     </ul>
   {% endif %}
