@@ -14,21 +14,21 @@ def draw_menu(context, menu_name):
     active_item = next((i for i in items if i.get_url() == current_path), None)
 
     def build_tree(parent=None):
-        return [dict(
-            item=item,
-            children=build_tree(item)
-        ) for item in items if item.parent == parent]
+        nodes = []
+        for item in items:
+            if item.parent == parent:
+                children = build_tree(item)
+                has_active_child = any(c['expand_children'] for c in children)
+                expand_children = item == active_item or has_active_child
+                nodes.append({
+                    'item': item,
+                    'children': children,
+                    'has_active_child': has_active_child,
+                    'expand_children': expand_children
+                })
+        return nodes
 
     tree = build_tree()
-    
-    def mark_active(nodes):
-        for node in nodes:
-            child_active = mark_active(node['children']) if node['children'] else False
-            node['has_active_child'] = child_active
-            node['expand_children'] = node['item'] == active_item or child_active
-        return any(node['item'] == active_item or node['has_active_child'] for node in nodes)
-
-    mark_active(tree)
 
     return {
         'menu_tree': tree,
