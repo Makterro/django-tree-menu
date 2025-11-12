@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+    <style>
+        .btn-back {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    {% load menu_tags %}
+    <h1>Меню</h1>
+    {% draw_menu 'main_menu' %}
+    <h1>{{ title }}</h1>
+    <a href="javascript:history.back()" class="btn-back">Назад</a>
+</body>
+</html>

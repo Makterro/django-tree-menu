@@ -20,4 +20,18 @@ def draw_menu(context, menu_name):
         ) for item in items if item.parent == parent]
 
     tree = build_tree()
+    
+    def mark_active(nodes):
+        has_active = False
+        for node in nodes:
+            child_active = mark_active(node['children']) if node['children'] else False
+            node['has_active_child'] = child_active
+            if node['item'] == active_item or child_active:
+                has_active = True
+        return has_active
+
+
+
+    mark_active(tree)
+
     return {'menu_tree': tree, 'active_item': active_item, 'current_path': current_path}

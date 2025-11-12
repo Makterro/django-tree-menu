@@ -1,0 +1,30 @@
+<style>
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  li {
+    margin: 5px 0;
+  }
+
+  .active > a {
+    font-weight: bold;
+    color: #0088ff;
+  }
+
+  .open > a {
+    font-weight: bold;
+    color: #ee00ff;
+  }
+
+  ul ul {
+    margin-left: 20px;
+  }
+</style>
+
+<ul>
+  {% for node in menu_tree %}
+    {% include "menu/menu_node.html" with node=node active_item=active_item %}
+  {% endfor %}
+</ul>
